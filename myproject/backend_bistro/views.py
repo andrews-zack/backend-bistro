@@ -9,12 +9,12 @@ def get_menu(request):
     menu = list(MenuItem.objects.all())
     for item in menu:
         data.append({
-            'name': item.title,
+            'title': item.title,
             'price': '$'+str(item.price),
             'description': item.desc,
             'spicy': item.spicy,
             'category': model_to_dict(item.category_id),
             'cuisine': model_to_dict(item.cuisine_id)
         })
-    return JsonResponse({'item': data})
+    return JsonResponse(data, safe=False)
 
