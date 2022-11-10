@@ -5,8 +5,16 @@ from pprint import pprint as pront
 from django.forms.models import model_to_dict
 
 def get_menu(request):
-    menu = list(MenuItem.objects.values())
-    # for x in menu:
-    #     model_to_dict(x)
-    return JsonResponse({'data': menu})
+    data = []
+    menu = list(MenuItem.objects.all())
+    for item in menu:
+        data.append({
+            'name': item.title,
+            'price': '$'+str(item.price),
+            'description': item.desc,
+            'spicy': item.spicy,
+            'category': model_to_dict(item.category_id),
+            'cuisine': model_to_dict(item.cuisine_id)
+        })
+    return JsonResponse({'data': data})
 
