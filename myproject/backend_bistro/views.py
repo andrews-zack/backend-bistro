@@ -16,5 +16,5 @@ def get_menu(request):
             'category': model_to_dict(item.category_id),
             'cuisine': model_to_dict(item.cuisine_id)
         })
-    return JsonResponse({'data': data})
+    return JsonResponse({'item': data})
 
