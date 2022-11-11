@@ -13,8 +13,24 @@ def get_menu(request):
             'price': '$'+str(item.price),
             'description': item.desc,
             'spicy': item.spicy,
-            'category': model_to_dict(item.category_id),
-            'cuisine': model_to_dict(item.cuisine_id)
+            'category': model_to_dict(item.category),
+            'cuisine': model_to_dict(item.cuisine)
         })
     return JsonResponse(data, safe=False)
 
+def menu_by_cuisine(request, cuisine):
+    # data = []
+    cuisine = list(MenuItem.objects.filter(cuisine__title=cuisine).values())
+    # for item in cuisine:
+    #     data.append({
+    #         'title': item.title,
+    #         'price': '$'+str(item.price),
+    #         'description': item.desc,
+    #         'spicy': item.spicy,
+    #         'category': model_to_dict(item.category),
+    #         'cuisine': model_to_dict(item.cuisine)
+    #     })
+    if len(cuisine) > 0:
+        return JsonResponse(cuisine, safe=False)
+    else:
+        return HttpResponse("Sorry, we don't currenty have that food")

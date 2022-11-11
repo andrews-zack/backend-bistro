@@ -6,8 +6,8 @@ class MenuItem(models.Model):
     desc = models.CharField(max_length=200, null=False)
     price = models.DecimalField(max_digits=5, decimal_places=2, null=False)
     spicy = models.PositiveIntegerField(default=0, validators = [MinValueValidator(0), MaxValueValidator(5)])
-    cuisine_id = models.ForeignKey("Cuisine", on_delete=models.CASCADE)
-    category_id = models.ForeignKey("Category", on_delete=models.CASCADE)
+    cuisine = models.ForeignKey("Cuisine", on_delete=models.CASCADE)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title + " - $" + str(self.price)
